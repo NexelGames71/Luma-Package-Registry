@@ -1,0 +1,21 @@
+{
+  "name": "com.nexel.terrain.core",
+  "versions": [
+    {
+      "version": "1.2.0",
+      "shasum": "b9eb993fdd781618e5c42d8827c9dcfcf1ad46f45c67fa06bf14347eb78eedc4",
+      "size": 576,
+      "url": "https://raw.githubusercontent.com/nexelgames/Luma-Package-Registry/main/packages/com.nexel.terrain.core/1.2.0/com.nexel.terrain.core-1.2.0.zip",
+      "dependencies": {
+        "com.nexel.core.reflection": "1.0.0"
+      },
+      "engineVersion": {
+        "min": "1.0.0",
+        "max": "2.0.0"
+      },
+      "description": "Terrain node and editor for Luma Engine. Provides terrain generation, editing, and rendering capabilities.",
+      "published": "2024-01-01T00:00:00Z"
+    }
+  ]
+}
+

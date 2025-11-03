@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "name": "com.nexel.core.reflection",
+  "version": "1.0.0",
+  "displayName": "Core Reflection",
+  "description": "Base reflection system for Luma Engine. Provides runtime type information and reflection capabilities.",
+  "author": {
+    "name": "Nexel Games"
+  },
+  "engine": {
+    "luma": ">=1.0.0"
+  },
+  "dependencies": {},
+  "keywords": [
+    "reflection",
+    "core",
+    "runtime",
+    "type-info"
+  ]
+}
