@@ -1,0 +1,21 @@
+{
+  "name": "com.nexel.render.luminite",
+  "version": "0.3.0",
+  "displayName": "Luminite Renderer",
+  "description": "Luminite Environment rendering tools for Luma Engine. Advanced lighting and rendering features.",
+  "author": "Nexel Games",
+  "engineVersion": {
+    "min": "1.0.0",
+    "max": "2.0.0"
+  },
+  "dependencies": {
+    "com.nexel.core.reflection": "1.0.0"
+  },
+  "keywords": [
+    "render",
+    "luminite",
+    "lighting",
+    "graphics"
+  ]
+}
+

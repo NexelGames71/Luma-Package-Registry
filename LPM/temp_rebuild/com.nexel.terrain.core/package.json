@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "name": "com.nexel.terrain.core",
+  "version": "1.2.0",
+  "displayName": "Terrain Core",
+  "description": "Terrain node and editor for Luma Engine. Provides terrain generation, editing, and rendering capabilities.",
+  "author": {
+    "name": "Nexel Games"
+  },
+  "engine": {
+    "luma": ">=1.0.0"
+  },
+  "dependencies": {
+    "com.nexel.core.reflection": "1.0.0"
+  },
+  "keywords": [
+    "terrain",
+    "editor",
+    "generation",
+    "landscape"
+  ]
+}
