@@ -1,0 +1,32 @@
+# Temporary files
+temp_packages/
+temp_rebuild/
+*.tmp
+*.log
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+.venv
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Package files (keep structure, ignore temp builds)
+*.zip.bak
+*.zip.tmp
