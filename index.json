@@ -1,31 +1,35 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "registry": "Luma Package Registry",
-  "revision": 6,
+  "revision": 8,
   "packages": {
-    "com.nexel.core.reflection": {
-      "latest": "1.0.0",
-      "versions": [
-        "1.0.0"
-      ]
+    "core": {
+      "com.nexel.core.reflection": {
+        "latest": "1.0.0",
+        "versions": [
+          "1.0.0"
+        ]
+      },
+      "com.nexel.render.luminite": {
+        "latest": "0.3.0",
+        "versions": [
+          "0.3.0"
+        ]
+      },
+      "com.nexel.terrain.core": {
+        "latest": "1.2.0",
+        "versions": [
+          "1.2.0"
+        ]
+      }
     },
-    "com.nexel.lighting.dynamic": {
-      "latest": "1.0.0",
-      "versions": [
-        "1.0.0"
-      ]
-    },
-    "com.nexel.render.luminite": {
-      "latest": "0.3.0",
-      "versions": [
-        "0.3.0"
-      ]
-    },
-    "com.nexel.terrain.core": {
-      "latest": "1.2.0",
-      "versions": [
-        "1.2.0"
-      ]
+    "third-party": {
+      "com.nexel.lighting.dynamic": {
+        "latest": "1.0.0",
+        "versions": [
+          "1.0.0"
+        ]
+      }
     }
   }
 }

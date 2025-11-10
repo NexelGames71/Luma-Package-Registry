@@ -52,6 +52,11 @@ The `package.json` file is required and must conform to the [JSON Schema](https:
 - **homepage** (string): Package homepage (must be valid HTTP/HTTPS URL)
 - **keywords** (array): Searchable keywords for the package
   - Example: `["reflection", "core", "runtime"]`
+- **category** (string): Package category
+  - Values: `"core"` or `"third-party"`
+  - Default: `"third-party"` if not specified
+  - `"core"`: Official Luma Engine packages maintained by Nexel Games (e.g., AI, Landscape, Luminite, Animation)
+  - `"third-party"`: Packages created by community developers
 - **dependencies** (object): Package dependencies
   - Format: `{ "package-name": "version" }`
   - Package names must follow reverse-domain notation
@@ -98,6 +103,7 @@ The `package.json` file is required and must conform to the [JSON Schema](https:
     "runtime",
     "type-info"
   ],
+  "category": "core",
   "samples": [
     {
       "displayName": "Basic Reflection Example",

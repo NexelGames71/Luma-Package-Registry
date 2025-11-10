@@ -14,6 +14,7 @@
         "max": "2.0.0"
       },
       "description": "Luminite Environment rendering tools for Luma Engine. Advanced lighting and rendering features.",
+      "category": "core",
       "published": "2024-01-01T00:00:00Z"
     }
   ]

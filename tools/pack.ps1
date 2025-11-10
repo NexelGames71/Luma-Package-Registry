@@ -78,6 +78,9 @@ if (Test-Path $manifestPath) {
     } | ConvertTo-Json -Depth 10 | ConvertFrom-Json
 }
 
+# Determine category (default to third-party if not specified)
+$category = if ($packageJson.category) { $packageJson.category } else { "third-party" }
+
 # Create version entry
 $versionEntry = @{
     version = $Version
@@ -87,6 +90,7 @@ $versionEntry = @{
     dependencies = if ($packageJson.dependencies) { $packageJson.dependencies } else { @{} }
     engine = $packageJson.engine
     description = $packageJson.description
+    category = $category
     published = (Get-Date -Format "yyyy-MM-ddTHH:mm:ssZ")
 }
 

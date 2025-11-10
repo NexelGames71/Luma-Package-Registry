@@ -57,15 +57,42 @@ Luma-Package-Registry/
         └── validate-and-update.yml
 ```
 
+## Package Categories
+
+The registry supports two types of packages:
+
+### Luma Core Packages
+
+Official packages maintained by Nexel Games that provide essential functionality for Luma Engine. These include:
+
+- **AI** - Artificial intelligence and behavior systems
+- **Landscape** - Landscape generation and editing tools
+- **Luminite** - Advanced rendering and lighting systems
+- **Animation** - Animation and rigging tools
+- **Core** - Core engine functionality (reflection, utilities, etc.)
+- **Terrain** - Terrain generation and editing
+
+Core packages are identified by the `"category": "core"` field in their `package.json` and typically use the `com.nexel.*` naming convention.
+
+### Third-Party Packages
+
+Community-created packages developed by independent developers. These packages extend Luma Engine with additional functionality, tools, and integrations.
+
+Third-party packages are identified by the `"category": "third-party"` field in their `package.json` (or default to third-party if not specified).
+
 ## Available Packages
 
 Currently available packages:
 
+**Core Packages:**
 - `com.nexel.core.reflection` - Base reflection system for Luma Engine
 - `com.nexel.render.luminite` - Luminite Environment rendering tools
 - `com.nexel.terrain.core` - Terrain node and editor
 
-See [index.json](index.json) for the complete list of all available packages.
+**Third-Party Packages:**
+- `com.nexel.lighting.dynamic` - Dynamic lighting system (test package)
+
+See [index.json](index.json) for the complete list of all available packages organized by category.
 
 ## Package Format
 

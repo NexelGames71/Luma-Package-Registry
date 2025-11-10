@@ -57,15 +57,29 @@ def update_index(registry_path="."):
             "$schema": "https://json-schema.org/draft/2020-12/schema",
             "registry": "Luma Package Registry",
             "revision": 1,
-            "packages": {}
+            "packages": {
+                "core": {},
+                "third-party": {}
+            }
         }
     
-    # Ensure packages is an object
+    # Ensure packages structure exists with categories
     if "packages" not in index or not isinstance(index["packages"], dict):
-        index["packages"] = {}
+        index["packages"] = {
+            "core": {},
+            "third-party": {}
+        }
+    
+    # Ensure categories exist
+    if "core" not in index["packages"]:
+        index["packages"]["core"] = {}
+    if "third-party" not in index["packages"]:
+        index["packages"]["third-party"] = {}
     
     # Scan manifests directory
-    packages = {}
+    core_packages = {}
+    third_party_packages = {}
+    
     for manifest_dir in manifests_dir.iterdir():
         if manifest_dir.is_dir():
             manifest_file = manifest_dir / "index.json"
@@ -77,22 +91,41 @@ def update_index(registry_path="."):
                     
                     # Extract versions from manifest
                     versions_list = []
+                    category = None  # Will be determined from version entries or package name
+                    
                     if "versions" in manifest and isinstance(manifest["versions"], list):
                         for version_entry in manifest["versions"]:
                             if isinstance(version_entry, dict) and "version" in version_entry:
                                 versions_list.append(version_entry["version"])
+                                # Get category from latest version entry (most recent)
+                                if "category" in version_entry and category is None:
+                                    category = version_entry["category"]
                             elif isinstance(version_entry, str):
                                 versions_list.append(version_entry)
+                    
+                    # Determine category: prefer explicit category from manifest
+                    # If no explicit category, infer from package name
+                    if category is None:
+                        if package_name.startswith("com.nexel."):
+                            category = "core"
+                        else:
+                            category = "third-party"
                     
                     # Get latest version
                     latest = get_latest_version(versions_list)
                     
                     if latest:
-                        packages[package_name] = {
+                        package_info = {
                             "latest": latest,
                             "versions": sorted(versions_list, key=lambda v: tuple(int(p) for p in v.split('.')) if v.replace('.', '').isdigit() else (0, 0, 0), reverse=True)
                         }
-                        print(f"Found package: {package_name} (latest: {latest})")
+                        
+                        if category == "core":
+                            core_packages[package_name] = package_info
+                        else:
+                            third_party_packages[package_name] = package_info
+                        
+                        print(f"Found package: {package_name} (latest: {latest}, category: {category})")
                     else:
                         print(f"Warning: No versions found for {package_name}")
                         
@@ -101,14 +134,20 @@ def update_index(registry_path="."):
                 except Exception as e:
                     print(f"Warning: Error reading {manifest_file}: {e}")
     
-    # Update packages object
-    index["packages"] = packages
+    # Update packages object with categories
+    index["packages"] = {
+        "core": core_packages,
+        "third-party": third_party_packages
+    }
     
     # Write updated index
     with open(index_path, 'w', encoding='utf-8') as f:
         json.dump(index, f, indent=2, ensure_ascii=False)
     
-    print(f"\nIndex updated: {len(packages)} packages found")
+    total_packages = len(core_packages) + len(third_party_packages)
+    print(f"\nIndex updated: {total_packages} packages found")
+    print(f"  - Core packages: {len(core_packages)}")
+    print(f"  - Third-party packages: {len(third_party_packages)}")
     print(f"Updated index.json at {index_path}")
     print(f"Revision: {index['revision']}")
     return True

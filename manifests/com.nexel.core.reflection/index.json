@@ -12,6 +12,7 @@
         "max": "2.0.0"
       },
       "description": "Base reflection system for Luma Engine. Provides runtime type information and reflection capabilities.",
+      "category": "core",
       "published": "2024-01-01T00:00:00Z"
     }
   ]
