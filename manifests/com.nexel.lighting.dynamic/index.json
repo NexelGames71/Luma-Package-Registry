@@ -1,0 +1,18 @@
+{
+  "name": "com.nexel.lighting.dynamic",
+  "versions": [
+    {
+      "version": "1.0.0",
+      "shasum": "34aa0acd21d0cea38d1e8639b0b10dc1faf34be461d47ec1ff875dcc6f04a9c9",
+      "size": 2608,
+      "url": "https://raw.githubusercontent.com/nexelgames/Luma-Package-Registry/main/packages/com.nexel.lighting.dynamic/1.0.0/com.nexel.lighting.dynamic-1.0.0.zip",
+      "dependencies": {},
+      "engineVersion": {
+        "min": "1.0.0",
+        "max": "2.0.0"
+      },
+      "description": "Dynamic lighting system for Luma Engine. Provides real-time lighting effects, shadows, and dynamic light sources.",
+      "published": "2025-11-10T01:45:59Z"
+    }
+  ]
+}
