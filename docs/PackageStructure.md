@@ -53,10 +53,10 @@ The `package.json` file is required and must conform to the [JSON Schema](https:
 - **keywords** (array): Searchable keywords for the package
   - Example: `["reflection", "core", "runtime"]`
 - **category** (string): Package category
-  - Values: `"core"` or `"third-party"`
-  - Default: `"third-party"` if not specified
-  - `"core"`: Official Luma Engine packages maintained by Nexel Games (e.g., AI, Landscape, Luminite, Animation)
-  - `"third-party"`: Packages created by community developers
+  - Values: `"registry"` or `"assets-store"`
+  - Default: `"assets-store"` if not specified
+  - `"registry"`: Official Luma Engine packages maintained by Nexel Games (e.g., AI, Landscape, Luminite, Animation)
+  - `"assets-store"`: Packages created by community developers
 - **dependencies** (object): Package dependencies
   - Format: `{ "package-name": "version" }`
   - Package names must follow reverse-domain notation
@@ -103,7 +103,7 @@ The `package.json` file is required and must conform to the [JSON Schema](https:
     "runtime",
     "type-info"
   ],
-  "category": "core",
+  "category": "registry",
   "samples": [
     {
       "displayName": "Basic Reflection Example",

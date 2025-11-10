@@ -59,9 +59,9 @@ Luma-Package-Registry/
 
 ## Package Categories
 
-The registry supports two types of packages:
+The registry supports two types of packages organized as separate tabs:
 
-### Luma Core Packages
+### Registry Tab
 
 Official packages maintained by Nexel Games that provide essential functionality for Luma Engine. These include:
 
@@ -72,24 +72,24 @@ Official packages maintained by Nexel Games that provide essential functionality
 - **Core** - Core engine functionality (reflection, utilities, etc.)
 - **Terrain** - Terrain generation and editing
 
-Core packages are identified by the `"category": "core"` field in their `package.json` and typically use the `com.nexel.*` naming convention.
+Registry packages are identified by the `"category": "registry"` field in their `package.json` and typically use the `com.nexel.*` naming convention.
 
-### Third-Party Packages
+### Assets Store Tab
 
 Community-created packages developed by independent developers. These packages extend Luma Engine with additional functionality, tools, and integrations.
 
-Third-party packages are identified by the `"category": "third-party"` field in their `package.json` (or default to third-party if not specified).
+Assets Store packages are identified by the `"category": "assets-store"` field in their `package.json` (or default to assets-store if not specified).
 
 ## Available Packages
 
 Currently available packages:
 
-**Core Packages:**
+**Registry Tab:**
 - `com.nexel.core.reflection` - Base reflection system for Luma Engine
 - `com.nexel.render.luminite` - Luminite Environment rendering tools
 - `com.nexel.terrain.core` - Terrain node and editor
 
-**Third-Party Packages:**
+**Assets Store Tab:**
 - `com.nexel.lighting.dynamic` - Dynamic lighting system (test package)
 
 See [index.json](index.json) for the complete list of all available packages organized by category.

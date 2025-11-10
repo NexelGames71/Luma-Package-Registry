@@ -78,8 +78,12 @@ if (Test-Path $manifestPath) {
     } | ConvertTo-Json -Depth 10 | ConvertFrom-Json
 }
 
-# Determine category (default to third-party if not specified)
-$category = if ($packageJson.category) { $packageJson.category } else { "third-party" }
+# Determine category (default to assets-store if not specified)
+# Map old category names to new ones
+$rawCategory = if ($packageJson.category) { $packageJson.category } else { "assets-store" }
+if ($rawCategory -eq "core") { $category = "registry" }
+elseif ($rawCategory -eq "third-party") { $category = "assets-store" }
+else { $category = $rawCategory }
 
 # Create version entry
 $versionEntry = @{

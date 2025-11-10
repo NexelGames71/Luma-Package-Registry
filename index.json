@@ -1,9 +1,9 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "registry": "Luma Package Registry",
-  "revision": 8,
+  "revision": 9,
   "packages": {
-    "core": {
+    "registry": {
       "com.nexel.core.reflection": {
         "latest": "1.0.0",
         "versions": [
@@ -23,7 +23,7 @@
         ]
       }
     },
-    "third-party": {
+    "assets-store": {
       "com.nexel.lighting.dynamic": {
         "latest": "1.0.0",
         "versions": [

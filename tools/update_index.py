@@ -58,27 +58,27 @@ def update_index(registry_path="."):
             "registry": "Luma Package Registry",
             "revision": 1,
             "packages": {
-                "core": {},
-                "third-party": {}
+                "registry": {},
+                "assets-store": {}
             }
         }
     
     # Ensure packages structure exists with categories
     if "packages" not in index or not isinstance(index["packages"], dict):
         index["packages"] = {
-            "core": {},
-            "third-party": {}
+            "registry": {},
+            "assets-store": {}
         }
     
     # Ensure categories exist
-    if "core" not in index["packages"]:
-        index["packages"]["core"] = {}
-    if "third-party" not in index["packages"]:
-        index["packages"]["third-party"] = {}
+    if "registry" not in index["packages"]:
+        index["packages"]["registry"] = {}
+    if "assets-store" not in index["packages"]:
+        index["packages"]["assets-store"] = {}
     
     # Scan manifests directory
-    core_packages = {}
-    third_party_packages = {}
+    registry_packages = {}
+    assets_store_packages = {}
     
     for manifest_dir in manifests_dir.iterdir():
         if manifest_dir.is_dir():
@@ -103,13 +103,19 @@ def update_index(registry_path="."):
                             elif isinstance(version_entry, str):
                                 versions_list.append(version_entry)
                     
+                    # Map old category names to new ones for backward compatibility
+                    if category == "core":
+                        category = "registry"
+                    elif category == "third-party":
+                        category = "assets-store"
+                    
                     # Determine category: prefer explicit category from manifest
                     # If no explicit category, infer from package name
                     if category is None:
                         if package_name.startswith("com.nexel."):
-                            category = "core"
+                            category = "registry"
                         else:
-                            category = "third-party"
+                            category = "assets-store"
                     
                     # Get latest version
                     latest = get_latest_version(versions_list)
@@ -120,10 +126,10 @@ def update_index(registry_path="."):
                             "versions": sorted(versions_list, key=lambda v: tuple(int(p) for p in v.split('.')) if v.replace('.', '').isdigit() else (0, 0, 0), reverse=True)
                         }
                         
-                        if category == "core":
-                            core_packages[package_name] = package_info
+                        if category == "registry":
+                            registry_packages[package_name] = package_info
                         else:
-                            third_party_packages[package_name] = package_info
+                            assets_store_packages[package_name] = package_info
                         
                         print(f"Found package: {package_name} (latest: {latest}, category: {category})")
                     else:
@@ -136,18 +142,18 @@ def update_index(registry_path="."):
     
     # Update packages object with categories
     index["packages"] = {
-        "core": core_packages,
-        "third-party": third_party_packages
+        "registry": registry_packages,
+        "assets-store": assets_store_packages
     }
     
     # Write updated index
     with open(index_path, 'w', encoding='utf-8') as f:
         json.dump(index, f, indent=2, ensure_ascii=False)
     
-    total_packages = len(core_packages) + len(third_party_packages)
+    total_packages = len(registry_packages) + len(assets_store_packages)
     print(f"\nIndex updated: {total_packages} packages found")
-    print(f"  - Core packages: {len(core_packages)}")
-    print(f"  - Third-party packages: {len(third_party_packages)}")
+    print(f"  - Registry packages: {len(registry_packages)}")
+    print(f"  - Assets Store packages: {len(assets_store_packages)}")
     print(f"Updated index.json at {index_path}")
     print(f"Revision: {index['revision']}")
     return True
