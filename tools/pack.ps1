@@ -72,10 +72,10 @@ $manifestPath = "$manifestDir\index.json"
 if (Test-Path $manifestPath) {
     $manifest = Get-Content $manifestPath | ConvertFrom-Json
 } else {
-    $manifest = @{
+    $manifest = [pscustomobject]@{
         name = $packageId
         versions = @()
-    } | ConvertTo-Json -Depth 10 | ConvertFrom-Json
+    }
 }
 
 # Determine category (default to assets-store if not specified)
@@ -85,6 +85,14 @@ if ($rawCategory -eq "core") { $category = "registry" }
 elseif ($rawCategory -eq "third-party") { $category = "assets-store" }
 else { $category = $rawCategory }
 
+# Normalize engine compatibility for manifest schema
+$engineCompatibility = $null
+if ($packageJson.engine -and $packageJson.engine.luma) {
+    $engineCompatibility = $packageJson.engine.luma
+} elseif ($packageJson.engineVersion) {
+    $engineCompatibility = $packageJson.engineVersion
+}
+
 # Create version entry
 $versionEntry = @{
     version = $Version
@@ -92,20 +100,29 @@ $versionEntry = @{
     size = (Get-Item $zipPath).Length
     url = "https://raw.githubusercontent.com/nexelgames/Luma-Package-Registry/main/packages/$packageId/$Version/$zipName"
     dependencies = if ($packageJson.dependencies) { $packageJson.dependencies } else { @{} }
-    engine = $packageJson.engine
     description = $packageJson.description
     category = $category
     published = (Get-Date -Format "yyyy-MM-ddTHH:mm:ssZ")
 }
 
+if ($engineCompatibility) {
+    $versionEntry.engineVersion = $engineCompatibility
+}
+
+# Normalize existing versions to a PowerShell array before mutation
+$existingVersions = @()
+if ($null -ne $manifest.versions) {
+    $existingVersions = @($manifest.versions)
+}
+
 # Remove existing version entry if it exists
-$manifest.versions = $manifest.versions | Where-Object { $_.version -ne $Version }
+$manifest.versions = @($existingVersions | Where-Object { $_.version -ne $Version })
 
 # Add new version entry
-$manifest.versions += $versionEntry
+$manifest.versions += [pscustomobject]$versionEntry
 
 # Sort versions (newest first)
-$manifest.versions = $manifest.versions | Sort-Object { [version]$_.version } -Descending
+$manifest.versions = @($manifest.versions | Sort-Object { [version]$_.version } -Descending)
 
 # Save manifest
 $manifest | ConvertTo-Json -Depth 10 | Set-Content $manifestPath -Encoding UTF8

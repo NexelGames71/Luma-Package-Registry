@@ -32,29 +32,31 @@ The Luma Package Registry is the central repository for discovering, distributin
 
 ## Repository Structure
 
-```
+```text
 Luma-Package-Registry/
-├── index.json                    # Global package index (all available packages)
-├── manifests/                    # Package manifests (version history)
-│   └── <package-name>/
-│       └── index.json           # Detailed manifest for each package
-├── packages/                     # Package archives (ZIP files)
-│   └── <package-name>/
-│       └── <version>/
-│           └── <package>-<version>.zip
-├── tools/                        # Automation and packaging tools
-│   ├── pack.ps1                 # Package creation script
-│   ├── update_index.py          # Index regeneration tool
-│   ├── validate_manifest.py    # Manifest validation
-│   └── validate_package.py     # Package validation
-├── docs/                         # Documentation
-│   ├── PackageStructure.md      # Package format specifications
-│   ├── PublishingGuide.md       # How to publish packages
-│   ├── VersioningPolicy.md      # Semantic versioning rules
-│   └── Security.md              # Security and integrity checks
-└── .github/
-    └── workflows/                # GitHub Actions automation
-        └── validate-and-update.yml
+|-- index.json                    # Global package index (all available packages)
+|-- manifests/                    # Package manifests (version history)
+|   `-- <package-name>/
+|       `-- index.json            # Detailed manifest for each package
+|-- packages/                     # Package archives (ZIP files)
+|   `-- <package-name>/
+|       `-- <version>/
+|           `-- <package>-<version>.zip
+|-- tools/                        # Automation and packaging tools
+|   |-- pack.ps1                  # Package creation script
+|   |-- update_index.py           # Index regeneration tool
+|   |-- validate_manifest.py      # Manifest validation
+|   |-- validate_package.py       # package.json schema validation
+|   `-- validate_registry.py      # Full registry validator
+|-- docs/                         # Documentation
+|   |-- PackageStructure.md       # Package format specifications
+|   |-- PublishingGuide.md        # How to publish packages
+|   |-- VersioningPolicy.md       # Semantic versioning rules
+|   `-- Security.md               # Security and integrity checks
+`-- .github/
+    `-- workflows/                # GitHub Actions automation
+        |-- python-package.yml    # Registry validation (PR + push)
+        `-- python-publish.yml    # Optional template publish workflow
 ```
 
 ## Package Categories
@@ -98,13 +100,13 @@ See [index.json](index.json) for the complete list of all available packages org
 
 Each package in the registry follows a standardized structure:
 
-```
+```text
 <package-name>-<version>.zip
-├── package.json          # Package metadata (required)
-├── Runtime/              # Runtime implementation files
-├── Editor/               # Editor-specific files (optional)
-├── Docs/                 # Documentation (optional)
-└── Samples/              # Example code (optional)
+|-- package.json          # Package metadata (required)
+|-- Runtime/              # Runtime implementation files
+|-- Editor/               # Editor-specific files (optional)
+|-- Docs/                 # Documentation (optional)
+`-- Samples/              # Example code (optional)
 ```
 
 The `package.json` file must conform to the [package schema](https://schemas.nexel.games/lpm/package.schema.json).
@@ -169,14 +171,15 @@ python tools\update_index.py
 
 ### Validation Tools
 - `validate_package.py` - Validates `package.json` against the schema
-- `validate_manifest.py` - Validates manifest files
+- `validate_manifest.py` - Validates individual manifest files
+- `validate_registry.py` - Validates manifests, archives, dependencies, and `index.json` consistency
 
 ## GitHub Actions
 
-The repository includes automated CI/CD workflows:
+The repository includes automated workflows:
 
-- **Package Validation** - Validates all packages and manifests on Pull Requests
-- **Index Auto-Update** - Automatically updates `index.json` when changes are merged
+- **Validate Registry** (`python-package.yml`) - Runs full registry validation on pushes and Pull Requests.
+- **Upload Python Package** (`python-publish.yml`) - Optional template workflow for Python package publishing.
 
 ## Security
 
@@ -204,3 +207,4 @@ The registry itself is maintained by Nexel Games.
 - **Repository**: https://github.com/NexelGames71/Luma-Package-Registry
 - **Package Schema**: https://schemas.nexel.games/lpm/package.schema.json
 - **Index Schema**: https://schemas.nexel.games/lpm/index.schema.json
+

@@ -1,0 +1,18 @@
+﻿{
+    "name":  "com.nexel.editor.substancex",
+    "versions":  [
+                     {
+                         "size":  23040776,
+                         "version":  "0.0.1",
+                         "category":  "registry",
+                         "dependencies":  {
+
+                                          },
+                         "url":  "https://raw.githubusercontent.com/nexelgames/Luma-Package-Registry/main/packages/com.nexel.editor.substancex/0.0.1/com.nexel.editor.substancex-0.0.1.zip",
+                         "description":  "Editor-only node-based material editor for Luma Engine with graph authoring, live preview, and .matgraph workflows.",
+                         "published":  "2026-03-05T22:27:09Z",
+                         "engineVersion":  "=0.0.1",
+                         "shasum":  "9208f93c713fa84b03b91d84586dd8d9adabc2c687c6177ca75e71edf067ea53"
+                     }
+                 ]
+}

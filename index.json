@@ -1,13 +1,19 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "registry": "Luma Package Registry",
-  "revision": 9,
+  "revision": 10,
   "packages": {
     "registry": {
       "com.nexel.core.reflection": {
         "latest": "1.0.0",
         "versions": [
           "1.0.0"
+        ]
+      },
+      "com.nexel.editor.substancex": {
+        "latest": "0.0.1",
+        "versions": [
+          "0.0.1"
         ]
       },
       "com.nexel.render.luminite": {
